@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkTreeStore" id="store">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <template class="PermissionViewerWin" parent="GtkApplicationWindow">
+    <property name="default-width">600</property>
+    <property name="default-height">400</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar">
+        <property name="visible">1</property>
+        <property name="title">Permission Viewer</property>
+        <property name="show-close-button">1</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">1</property>
+        <child>
+          <object class="GtkTreeView">
+            <property name="visible">1</property>
+            <property name="model">store</property>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="visible">1</property>
+                <property name="title">Name</property>
+                <child>
+                  <object class="GtkCellRendererText">
+                  </object>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="visible">1</property>
+                <property name="title">Permissions</property>
+                <child>
+                  <object class="GtkCellRendererText">
+                  </object>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="visible">1</property>
+                <property name="title">Data</property>
+                <child>
+                  <object class="GtkCellRendererText">
+                  </object>
+                  <attributes>
+                    <attribute name="text">2</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
