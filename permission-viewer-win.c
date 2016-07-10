@@ -64,6 +64,28 @@ add_table (PermissionViewerWin *win,
 }
 
 static void
+populate (PermissionViewerWin *win)
+{
+  g_autofree char *path = NULL;
+  g_autoptr(GError) error = NULL;
+  GDir *dir;
+  const char *name;
+
+  path = g_build_filename (g_get_user_data_dir (), "flatpak/db", NULL);
+  dir = g_dir_open (path, 0, &error);
+  if (dir == NULL)
+    {
+      g_warning ("No databases found: %s", error->message);
+      return;
+    }
+
+  while ((name = g_dir_read_name (dir)) != NULL)
+    add_table (win, name);
+
+  g_dir_close (dir);
+}
+
+static void
 permission_viewer_win_init (PermissionViewerWin *win)
 {
   gtk_widget_init_template (GTK_WIDGET (win));
@@ -73,9 +95,7 @@ permission_viewer_win_init (PermissionViewerWin *win)
                                                            "org.freedesktop.impl.portal.PermissionStore",
                                                            "/org/freedesktop/impl/portal/PermissionStore",
                                                            NULL, NULL);
-  add_table (win, "gnome");
-  add_table (win, "notifications");
-  add_table (win, "documents");
+  populate (win);
 }
 
 static void
