@@ -2,9 +2,13 @@
 <interface>
   <object class="GtkTreeStore" id="store">
     <columns>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
+      <column type="gchararray"/> <!-- table -->
+      <column type="gchararray"/> <!-- id -->
+      <column type="gchararray"/> <!-- appid -->
+      <column type="gchararray"/> <!-- display name -->
+      <column type="gchararray"/> <!-- display permissions -->
+      <column type="gchararray"/> <!-- display data -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <template class="PermissionViewerWin" parent="GtkApplicationWindow">
@@ -21,18 +25,22 @@
       <object class="GtkScrolledWindow">
         <property name="visible">1</property>
         <child>
-          <object class="GtkTreeView">
+          <object class="GtkTreeView" id="view">
             <property name="visible">1</property>
             <property name="model">store</property>
+            <property name="enable-grid-lines">vertical</property>
+            <signal name="button-press-event" handler="button_press_cb"/>
             <child>
               <object class="GtkTreeViewColumn">
                 <property name="visible">1</property>
                 <property name="title">Name</property>
                 <child>
                   <object class="GtkCellRendererText">
+                    <signal name="edited" handler="name_edited"/>
                   </object>
                   <attributes>
-                    <attribute name="text">0</attribute>
+                    <attribute name="text">3</attribute>
+                    <attribute name="editable">6</attribute>
                   </attributes>
                 </child>
               </object>
@@ -40,12 +48,15 @@
             <child>
               <object class="GtkTreeViewColumn">
                 <property name="visible">1</property>
+                <property name="resizable">1</property>
                 <property name="title">Permissions</property>
                 <child>
                   <object class="GtkCellRendererText">
+                    <signal name="edited" handler="permissions_edited"/>
                   </object>
                   <attributes>
-                    <attribute name="text">1</attribute>
+                    <attribute name="text">4</attribute>
+                    <attribute name="editable">6</attribute>
                   </attributes>
                 </child>
               </object>
@@ -53,12 +64,14 @@
             <child>
               <object class="GtkTreeViewColumn">
                 <property name="visible">1</property>
+                <property name="resizable">1</property>
                 <property name="title">Data</property>
                 <child>
                   <object class="GtkCellRendererText">
+                    <signal name="edited" handler="data_edited"/>
                   </object>
                   <attributes>
-                    <attribute name="text">2</attribute>
+                    <attribute name="text">5</attribute>
                   </attributes>
                 </child>
               </object>
