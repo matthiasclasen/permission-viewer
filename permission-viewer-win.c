@@ -110,12 +110,10 @@ add_table (PermissionViewerWin *win,
   parent = iter;
   for (i = 0; ids[i]; i++)
     {
-      GtkTreeIter child;
       g_autoptr(GVariant) permissions = NULL;
       g_autoptr(GVariant) data = NULL;
       g_autoptr(GVariant) d = NULL;
       g_autofree char *txt = NULL;
-      int j;
 
       xdp_permission_store_call_lookup_sync (win->impl, table, ids[i], &permissions, &data, NULL, NULL);
 
@@ -129,7 +127,6 @@ add_table (PermissionViewerWin *win,
                           COL_DATA, txt,
                           -1);
 
-      child = iter;
       add_permissions_to_store (win, &iter, table, ids[i], permissions);
     }
 }
@@ -218,7 +215,6 @@ add_row (GtkWidget *button, PermissionViewerWin *win)
   g_autofree char *app_id = NULL;
   GtkTreePath *path;
   GtkTreeIter iter;
-  GtkTreeIter child;
   GtkWidget *popover;
   GVariantBuilder builder;
   GVariantBuilder pb;
@@ -273,7 +269,6 @@ button_press_cb (GtkWidget *widget,
   GtkTreePath *path;
   GtkTreeViewColumn *col;
   GtkTreeIter iter;
-  GtkTreeIter parent;
   GdkRectangle rect;
   GtkWidget *button;
   GtkWidget *box;
@@ -319,6 +314,8 @@ button_press_cb (GtkWidget *widget,
   g_signal_connect (popover, "unmap", G_CALLBACK (gtk_widget_destroy), NULL);
 
   gtk_tree_path_free (path);
+
+  return TRUE;
 }
 
 static void
