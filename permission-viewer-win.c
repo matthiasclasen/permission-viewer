@@ -493,15 +493,6 @@ permissions_edited (GtkCellRendererText *renderer,
 }
 
 static void
-data_edited (GtkCellRendererText *renderer,
-             const char *path,
-             const char *new_text,
-             PermissionViewerWin *win)
-{
-  g_debug ("new data: %s", new_text);
-}
-
-static void
 changed_cb (XdpPermissionStore *object,
             const char *table,
             const char *id,
@@ -565,7 +556,6 @@ permission_viewer_win_class_init (PermissionViewerWinClass *class)
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (class), button_press_cb);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (class), name_edited);
   gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (class), permissions_edited);
-  gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (class), data_edited);
 }
 
 GtkApplicationWindow *

@@ -68,7 +68,6 @@
                 <property name="title">Data</property>
                 <child>
                   <object class="GtkCellRendererText">
-                    <signal name="edited" handler="data_edited"/>
                   </object>
                   <attributes>
                     <attribute name="text">5</attribute>
