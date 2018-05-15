@@ -5,8 +5,8 @@ project('permission-viewer', 'c',
 
 gnome = import('gnome')
 
-flatpak_interfaces_dir = dependency('flatpak').get_pkgconfig_variable('interfaces_dir')
-permission_store_xml = join_paths(flatpak_interfaces_dir,
+xdp_interfaces_dir = dependency('xdg-desktop-portal', version: '>= 0.10').get_pkgconfig_variable('interfaces_dir')
+permission_store_xml = join_paths(xdp_interfaces_dir,
                                   'org.freedesktop.impl.portal.PermissionStore.xml')
 
 xdp_dbus = gnome.gdbus_codegen('xdp-dbus',
