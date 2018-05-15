@@ -28,7 +28,10 @@ executable('permission-viewer',
     'permission-viewer-app.c',
     'permission-viewer-win.c',
   ],
-  dependencies: dependency('gtk+-3.0'),
+  dependencies: [
+    dependency('gtk+-3.0'),
+    dependency('gio-unix-2.0'),
+  ],
   install: true,
 )
 
